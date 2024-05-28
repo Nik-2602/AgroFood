@@ -1,0 +1,201 @@
+﻿@model IEnumerable<AgroFood.Models.ReportTonKho>
+
+
+@{
+    ViewBag.Title = "Tồn Kho";
+    Layout = "~/Areas/Admin/Views/Shared/Layout_admin.cshtml";
+}
+
+
+@section Style {
+    <style>
+        .search_report_for {
+            display: flex;
+            margin-top: 40px;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+            .search_report_for p {
+                width: 100px;
+                margin-bottom: 0;
+                flex-grow: 0;
+            }
+
+            .search_report_for select {
+                outline: none;
+                padding: 4px 10px;
+            }
+
+        .input-control {
+            width: 50% !important;
+        }
+
+        .search_for-MaSP,
+        .search_for-TenSP {
+            display: none;
+            ;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+            .search_for-MaSP.active,
+            .search_for-TenSP.active {
+                display: flex;
+            }
+
+            .search_for-MaSP input,
+            .search_for-TenSP input {
+                margin-right: 5px;
+            }
+
+            .search_for-MaSP button,
+            .search_for-TenSP button {
+                padding: 2px 25px;
+            }
+    </style>
+
+
+
+}
+
+<main>
+    <section class="service_section">
+        <div class="container">
+            <div class="search_report_for">
+                <p>Tìm kiếm theo</p>
+                <select class="search_for" name="search_for" id="">
+                    <option value="Chọn">-- Chọn --</option>
+                    <option value="Mã sản phẩm">Mã sản phẩm</option>
+                    <option value="Tên sản phẩm">Tên sản phẩm</option>
+                </select>
+
+                @using (Html.BeginForm("Index", "TonKho", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+
+                    <div class="search_for-MaSP">
+                        <input class=" form-control" name="searchMaSP" type="text" placeholder="Nhập mã sản phẩm" />
+                        <button type="submit">Lọc</button>
+                    </div>
+
+                    <div class="search_for-TenSP">
+                        <input class=" form-control" name="searchTenSP" type="text" placeholder="Nhập tên sản phẩm" />
+                        <button type="submit">Lọc</button>
+                    </div>
+
+                }
+            </div>
+            <div style="margin-bottom: 20px">
+                @Html.ActionLink("Xuất file Excel", "Reports", new { ReportType = "Excel" }) |
+                @Html.ActionLink("Xuất file PDF", "Reports", new { ReportType = "PDF" }) |
+                @Html.ActionLink("Xuất file Word", "Reports", new { ReportType = "Word" }) |
+                @Html.ActionLink("Xuất file Image", "Reports", new { ReportType = "Image" })
+            </div>
+
+            @if (Model != null)
+            {
+
+                <table class="table">
+                    <tr>
+                        <th>
+                            Mã Sản Phẩm
+                        </th>
+                        <th>
+                            Tên Sản Phẩm
+                        </th>
+                        <th>
+                            Số Lượng Nhập
+                        </th>
+                        <th>
+                            Số Lượng Bán
+                        </th>
+                        <th>
+                            Tồn Kho
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaSP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenSP)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SoLuongT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SoLuongBan)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TonKho)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            }
+            else
+            {
+                <table class="table">
+                    <tr>
+                        <th>
+                            Mã Sản Phẩm
+                        </th>
+                        <th>
+                            Tên Sản Phẩm
+                        </th>
+                        <th>
+                            Số Lượng Nhập
+                        </th>
+                        <th>
+                            Số Lượng Bán
+                        </th>
+                        <th>
+                            Tồn Kho
+                        </th>
+                    </tr>
+                </table>
+            }
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+    const select = document.querySelector(".search_for");
+select.addEventListener("change", function() {
+  // Lấy giá trị của lựa chọn đã chọn
+  const value = select.options[select.selectedIndex].value;
+
+  // Thay đổi giao diện của trang web
+  switch (value) {
+    case "Mã sản phẩm":
+      // Hiển thị trường nhập mã hóa đơn
+          document.querySelector(".search_for-MaSP").style.display = "flex";
+      // Ẩn các trường nhập khác
+          document.querySelector(".search_for-TenSP").style.display = "none";
+      break;
+    case "Tên sản phẩm":
+      // Hiển thị trường nhập mã khách hàng
+          document.querySelector(".search_for-TenSP").style.display = "flex";
+      // Ẩn các trường nhập khác
+          document.querySelector(".search_for-MaSP").style.display = "none";
+      break;
+    default:
+      // Ẩn tất cả các trường nhập
+          document.querySelector(".search_for-MaSP").style.display = "none";
+          document.querySelector(".search_for-TenSP").style.display = "none";
+      break;
+  }
+});
+
+
+</script>
+

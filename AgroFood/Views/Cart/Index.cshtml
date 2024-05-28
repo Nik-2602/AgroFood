@@ -1,0 +1,777 @@
+﻿
+@model List<AgroFood.Models.SP_MH_LH_DDH_CTDDH>
+
+@{
+    ViewBag.Title = "Đặt Hàng";
+    Layout = "~/Views/Shared/LayoutUserNoJS.cshtml";
+}
+
+
+@section style {
+    .content_top-forgot {
+    margin-top:8px;
+    }
+
+    .content_top-input {
+    width: 50% !important;
+    }
+
+    hr {
+    top:64%;
+    }
+
+    .content__login {
+    top: 51px !important;
+    }
+
+    .detail_list_product {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px;
+    margin-top: 10px;
+    }
+
+    .detail_list_product-head {
+    font-size: 2.6rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+    }
+
+    .table_list_product {
+    text-align: center;
+    margin-left: auto;
+    }
+
+    .table_list_product .dp_right-box-control-quantity {
+    margin-left: auto;
+    margin-right: 0;
+    align-items: center;
+    justify-content: center;
+    }
+
+
+    .table_list_product tr,.table_list_product td {
+    border: 1px solid #ddd;
+    }
+
+    .table_list_product .head_table {
+    padding: 8px 20px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    background-color: #00B412;
+    color: #fff;
+    }
+
+    .table_list_product td img {
+    width: 70px;
+    height: 70px;
+    }
+
+    .table_list_product td {
+    font-size: 1.6rem;
+    }
+
+    .del_row-table {
+    cursor:pointer;
+    }
+
+    .total_list_product {
+    align-self: flex-end !important;
+    font-size: 1.8rem;
+    }
+
+    .total_list_product span {
+    font-weight: 700;
+    }
+
+
+    .list_btn_DP button {
+    border: none;
+    /* float: right; */
+    /* margin-right: auto; */
+    background-color: #00B412;
+    color: #fff;
+    border-radius: 4px;
+    outline: none;
+    padding: 8px 30px;
+    font-size: 1.8rem;
+    margin: 0 10px;
+    margin-bottom: 20px;
+    }
+
+    .sub-header__lp {
+    align-self: start;
+    font-size: 2.2rem;
+    font-weight: 600;
+    position: relative;
+    }
+
+    .sub-header__lp.active {
+    display: none;
+    }
+
+    .sub_content-delivery.active {
+    display: none;
+    }
+
+    .sub_content-delivery {
+    border: 1px solid #ddd;
+    width: 100%;
+    padding: 40px 100px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-start; */
+    justify-content: center;
+    margin-bottom: 20px;
+    }
+
+    .lable__header-delivery {
+    font-size: 1.6rem;
+    color: var(--text-color);
+    margin-bottom: 5px;
+    font-weight: 600;
+    }
+
+
+    .content_top-input {
+    display: block;
+    width: 100%;
+    font-size: 1.6rem;
+    padding: 7px 10px;
+    background-color: #fff;
+    margin-bottom: 30px;
+    border: 1px solid rgb(219, 219, 219);
+    outline-color: #7b7b7b;
+    }
+
+    .content_top-input::placeholder {
+    color: #999;
+    }
+
+    .continue_buy_pro {
+    align-self: flex-end !important;
+    }
+
+    .continue_buy_pro a {
+    text-decoration: none;
+    font-style: italic;
+    font-size: 1.6rem;
+    color: #000;
+    }
+
+    .list_btn_DP .btn__delivery.active {
+    display: none;
+    }
+
+    .list_btn_DP .btn__del-all.active {
+    display: none;
+    }
+
+    .header__action-list >li:last-child {
+    display:none;
+    }
+
+    ul li img {
+        width:35;
+        height:30px;
+    }
+
+
+}
+
+
+<div class="detail_list_product">
+    <h1 class="detail_list_product-head">THÔNG TIN ĐƠN ĐẶT HÀNG</h1>
+
+    <p class="sub-header__lp"><i class="fas fa-info-circle"></i> Thông tin sản phẩm</p>
+    @{
+        if (Model != null)
+        {
+            var TriGia = 0;
+            <table class="table_list_product">
+                <tr>
+                    <td class="head_table">Mã sản phẩm</td>
+                    <td class="head_table">Tên loại hàng</td>
+                    <td class="head_table">Tên sản phẩm</td>
+                    <td class="head_table">Hình ảnh minh họa</td>
+                    <td class="head_table">Đơn giá</td>
+                    <td class="head_table">Số luọng</td>
+                    <td class="head_table">Thành tiền</td>
+                    <td class="head_table"></td>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model[i];
+                    <tr>
+                        <td class="maSP">@item.MaSP</td>
+                        <td>@item.TenLH</td>
+                        <td>@item.TenSP</td>
+                        <td><img src="@item.HinhAnh" alt=""></td>
+                        <td class="giaBanSP">@item.GiaBanSP</td>
+                        <td>
+                            <div class="dp_right-box-control-quantity">
+
+                                <button class="minus-quatity">
+                                    <i class="fas fa-minus "></i>
+                                </button>
+                                <span class="quantity-product" SoLuongTon="@item.SoLuongT">@item.SoLuong</span>
+                                <button class="plus-quatity">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="tongTien">@item.TongTien</td>
+                        <td class="del_row-table">Xóa</td>
+
+                    </tr>
+                    TriGia += item.TongTien;
+                }
+            </table>
+
+            <div class="total_list_product">Tổng cộng : <span>@TriGia</span> đ</div>
+
+        }
+    }
+    <p class="sub-header__lp sub-header__lp-order active"><i class="fas fa-info-circle"></i> Thông tin đơn đặt hàng</p>
+    <div class="sub_content-delivery active">
+        @{
+            if (Model != null)
+            {
+                for (int i = Model.Count - 1; i < Model.Count; i++)
+                {
+                    if (Model.Count == 0)
+                    {
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="lable__header-delivery" for="">Họ tên người nhận</label>
+                                <input class="content_top-input hoTenNN" disabled type="text">
+                                <label class="lable__header-delivery" for="">Địa chỉ</label>
+                                <input class="content_top-input diaChiNN" disabled type="text">
+                                <label class="lable__header-delivery" for="">Điện thoại</label>
+                                <input class="content_top-input SDTNN" disabled type="text">
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="lable__header-delivery" for="">Hình thức giao hàng</label>
+                                <select disabled class="content_top-input selectedHTGH" name="" id="">
+                                    <option value="Giao hàng tận nơi">Giao hàng tận nơi</option>
+                                    <option value="Giao hàng nhanh">Giao hàng nhanh</option>
+                                    <option checked value="Giao hàng tiết kiệm">Giao hàng tiết kiệm</option>
+                                </select>
+                                <label class="lable__header-delivery" for="">Hình thức thanh toán: <p class="HTTT" style="display: inline-block; font-size: 1.6rem; margin-left: 5px ; font-weight:400;"></p> </label>
+
+                            </div>
+                        </div>
+                        <button disabled class="btn__delivery-order_in_container" style="display: block; padding: 5px 30px; background-color: var(--main-color); color: #fff;outline: none; border: none; margin-bottom: 20px; font-size: 1.6rem; border-radius: 4px;">Đặt Hàng</button>
+
+
+                    }
+                    else
+                    {
+                        var item = Model[i];
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <label class="lable__header-delivery" for="">Họ tên người nhận</label>
+                                <input class="content_top-input hoTenNN" type="text" value="@item.HoTen">
+                                <label class="lable__header-delivery" for="">Địa chỉ</label>
+                                <input class="content_top-input diaChiNN" type="text" value="@item.DiaChi">
+                                <label class="lable__header-delivery" for="">Điện thoại</label>
+                                <input class="content_top-input SDTNN" type="text" value="@item.SoDT">
+                            </div>
+                            <div class="col-lg-6">
+                                <label class="lable__header-delivery" for="">Hình thức giao hàng</label>
+                                <select class="content_top-input selectedHTGH" name="" id="">
+                                    <option value="Giao hàng tận nơi">Giao hàng tận nơi</option>
+                                    <option value="Giao hàng nhanh">Giao hàng nhanh</option>
+                                    <option checked value="Giao hàng tiết kiệm">Giao hàng tiết kiệm</option>
+                                </select>
+                                <label hidden class="lable__header-delivery" for="">Hình thức thanh toán: <p class="HTTT" style="display: inline-block; font-size: 1.6rem; margin-left: 5px ; font-weight:400;">@item.HTThanhToan</p> </label>
+                                <label class="lable__header-delivery" for="">Hình thức thanh toán</label>
+                                <select class="content_top-input selectedHTGH" name="" id="payment-method">
+                                    <option value="Thanh toán COD">Thanh toán COD</option>
+                                    <option value="Thanh toán trực tuyến">Thanh toán trực tuyến</option>
+                                </select>
+                                <div id="bankchoose" style="display:none">
+                                    <div>
+                                        <ul style="display:flex; list-style: none;">
+                                            <li id="visabank">
+                                                <img src="~/assets/img/bank/visa.png" />
+                                            </li>
+                                            <li class="mx-3">
+                                                <img src="~/assets/img/bank/mastercard.png" />
+                                            </li>
+                                            <li class="mx-3" id="momoBank">
+                                                <img src="~/assets/img/bank/momo.jpg" />
+                                            </li>
+                                            <li class="mx-3" id="vietcomBank">
+                                                <img src="~/assets/img/bank/vietcom.png" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mt-2" id="inforBank" style="display:none">
+                                        <label class="lable__header-delivery" for="">Số thẻ</label>
+                                        <input class="content_top-input hoTenNN"  type="text">
+                                        <label class="lable__header-delivery" for="">Thời gian hết hạn</label>
+                                        <input class="content_top-input diaChiNN"  type="text">
+                                        <label class="lable__header-delivery" for="">CW/CV2</label>
+                                        <input class="content_top-input SDTNN"  type="text">
+                                    </div>
+                                    <div class="mt-3 mb-4" style="display:none" id="qrVietCom">
+                                        <img style="width:50%;height:100%" src="~/assets/img/qr/qrVietComjpg.jpg"/>
+                                    </div>
+                                    <div class="mt-3 mb-4" id="qrMoMo" style="display:none">
+                                        <img style="width:50%;height:100%" src="~/assets/img/qr/qrMoMo.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                        <button id="btnOrder" class="btn__delivery-order_in_container" style="display: block; padding: 5px 30px; background-color: var(--main-color); color: #fff;outline: none; border: none; margin-bottom: 20px; font-size: 1.6rem; border-radius: 4px;">Đặt Hàng</button>
+
+                    }
+
+
+                }
+            }
+        }
+    </div>
+
+    <div class="list_btn_DP">
+        <button class="btn__delivery btn__delivery-order">Đặt hàng</button>
+        <button class="btn__delivery btn__update-delivery">Cập nhật giỏ hàng</button>
+    </div>
+
+    <span class="continue_buy_pro"><a href="">Tiếp tục mua hàng >>>></a></span>
+
+</div>
+
+
+
+
+
+
+@section Script {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        var paymentMethodSelect = document.getElementById("payment-method");
+        var bankChooseDiv = document.getElementById("bankchoose");
+        var momoBank = document.getElementById("momoBank");
+        var vietcomBank = document.getElementById("vietcomBank");
+        var qrVietCom = document.getElementById("qrVietCom");
+        var qrMoMo = document.getElementById("qrMoMo");
+
+        var btnOrder = document.getElementById("btnOrder");
+
+
+        paymentMethodSelect.addEventListener("change", function () {
+            if (paymentMethodSelect.value === "Thanh toán trực tuyến") {
+                bankChooseDiv.style.display = "block";
+                
+                
+            } else {
+                bankChooseDiv.style.display = "none";
+                btnOrder.style.display = "block";
+
+            }
+        });
+
+        var inforBank = document.getElementById("inforBank")
+        var visaBank = document.getElementById("visabank");
+        visaBank.addEventListener("click", function () {
+            inforBank.style.display = "block";
+            qrVietCom.style.display = "none";
+            qrMoMo.style.display = "none";
+            btnOrder.style.display = "block";
+        })
+
+        momoBank.addEventListener("click", function () {
+            inforBank.style.display = "none";
+            qrVietCom.style.display = "none";
+            qrMoMo.style.display = "block";
+            btnOrder.style.display = "none";
+        })
+
+        vietcomBank.addEventListener("click", function () {
+            inforBank.style.display = "none";
+            qrVietCom.style.display = "block";
+            qrMoMo.style.display = "none";
+            btnOrder.style.display = "none";
+        })
+
+    </script>
+
+    <script>
+        const listItem = document.querySelectorAll(".side_transition-item-top>a")
+        const listDetailItem = document.querySelectorAll(".side_transition-item-top .side_transition-detail .side_transition-detail-item");
+
+
+        listItem.forEach((item) => {
+            item.addEventListener("click", () => {
+                // console.log(item.parentElement.children[1].children);
+                const isActive = item.parentElement.classList.contains("active");
+
+                if (isActive) {
+                    item.parentElement.classList.remove("active");
+                } else {
+
+                    listItem.forEach((otherItem) => {
+                        otherItem.parentElement.classList.remove("active");
+                    });
+                    item.parentElement.classList.add("active");
+                }
+            });
+        });
+
+        listDetailItem.forEach((item) => {
+            item.addEventListener("click", () => {
+                const spanElement = item.querySelector("span");
+                if (spanElement) {
+                    const SearchTerm = spanElement.textContent;
+                    /*$.ajax({
+                        type: "POST",
+                        url: "/home/CategoryList",
+                        data: JSON.stringify({ search: SearchTerm }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                             $('html').html(data);
+                        },
+                        error: function (error) {
+                            console.error("Error occurred during AJAX request:", error);
+                        },
+
+                    });*/
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Category",
+                        data: JSON.stringify({ search: SearchTerm }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            window.location.href = "/Category";
+                        },
+                        error: function (error) {
+                            console.error("Error occurred during AJAX request:", error);
+                        },
+
+                    });
+
+
+                }
+            });
+        });
+    </script>
+
+
+    @if (Session["User"] != null)
+    {
+        <script>
+            const minusBtns = document.querySelectorAll('.table_list_product tr .minus-quatity');
+            const plusBtns = document.querySelectorAll('.table_list_product tr .plus-quatity')
+            const delBtns = document.querySelectorAll(".table_list_product tr .del_row-table")
+            console.log(delBtns);
+
+            minusBtns.forEach(minusBtn => {
+                minusBtn.addEventListener('click', (event) => {
+                    // Lấy dòng TR chứa minusBtn
+                    const row = minusBtn.closest('tr');
+
+                    // Lấy giá trị của thuộc tính SoLuongTon của dòng TR
+                    /*const soLuongTon = row.querySelector('.quantity-product').getAttribute('SoLuongTon');*/
+                    var spanElement = row.querySelector(".quantity-product[SoLuongTon]");
+
+                    // Lấy giá trị của thuộc tính "SoLuongTon"
+                    var soLuongTon = parseInt(spanElement.getAttribute("SoLuongTon"));
+
+
+
+                    var currentQuantityCart = parseInt(row.querySelector('.quantity-product').textContent);
+                    var quantityProduct = row.querySelector('.quantity-product');
+
+
+                    if (parseInt(quantityProduct.textContent) > 1) {
+
+                        quantityProduct.textContent = currentQuantityCart - 1;
+                        const giaBanSP = row.querySelector('.giaBanSP').textContent;
+
+                        const tongTien = row.querySelector('.tongTien');
+
+                        tongTien.textContent = parseInt(quantityProduct.textContent) * giaBanSP;
+
+
+
+
+
+                        // Cập nhật tổng tiền của sản phẩm
+
+
+                        // Nếu số lượng sản phẩm bằng 0 thì xóa dòng TR
+
+
+                        // Cập nhật tổng giá trị của giỏ hàng
+                        const triGia = document.querySelector('.total_list_product span');
+
+                        triGia.textContent = parseInt(triGia.textContent) - parseInt(giaBanSP);
+
+                    }
+                });
+            });
+
+            plusBtns.forEach(plusBtn => {
+                plusBtn.addEventListener('click', (event) => {
+                    // Lấy dòng TR chứa minusBtn
+                    const row = plusBtn.closest('tr');
+                    console.log(row);
+
+                    // Lấy giá trị của thuộc tính SoLuongTon của dòng TR
+                    /*const soLuongTon = row.querySelector('.quantity-product').getAttribute('SoLuongTon');*/
+                    var spanElement = row.querySelector(".quantity-product[SoLuongTon]");
+
+                    // Lấy giá trị của thuộc tính "SoLuongTon"
+                    var soLuongTon = parseInt(spanElement.getAttribute("SoLuongTon"));
+                    console.log(soLuongTon);
+
+
+                    var currentQuantityCart = parseInt(row.querySelector('.quantity-product').textContent);
+                    var quantityProduct = row.querySelector('.quantity-product');
+                    console.log(quantityProduct)
+
+                    console.log(currentQuantityCart)
+                    if (currentQuantityCart < soLuongTon) {
+                        quantityProduct.textContent = currentQuantityCart + 1;
+                        const giaBanSP = row.querySelector('.giaBanSP').textContent;
+                        console.log(giaBanSP);
+                        const tongTien = row.querySelector('.tongTien');
+                        console.log(tongTien);
+                        tongTien.textContent = parseInt(quantityProduct.textContent) * giaBanSP;
+                        const triGia = document.querySelector('.total_list_product span');
+                        triGia.textContent = parseInt(triGia.textContent) + parseInt(giaBanSP);
+                    }
+
+
+                    // Cập nhật tổng giá trị của giỏ hàng
+                    /*                    const triGia = document.querySelector('.triGia');
+                                        triGia.textContent = parseInt(triGia.textContent) - giaBanSP;*/
+                });
+            });
+
+
+            delBtns.forEach(delBtn => {
+                delBtn.addEventListener('click', (event) => {
+
+                    const row = delBtn.closest('tr');
+                    const tongTien = row.querySelector('.tongTien');
+                    @{ var listBuyKH = Session["getListBuyKH"] as List<AgroFood.Models.SP_MH_LH_DDH_CTDDH>;
+                        var MaDDH = "";
+                        var MaKH = "";
+
+                        foreach (var item in listBuyKH)
+                        {
+                            MaDDH = item.MaDDH;
+                            MaKH = item.MaKH;
+
+                        }
+
+                    }
+
+                    var MaSP = row.querySelector(".maSP").textContent;
+                    const triGia = document.querySelector('.total_list_product span');
+                    triGia.textContent = parseInt(triGia.textContent) - parseInt(tongTien.textContent);
+                     if (row) {
+                         $.ajax({
+                         type: "POST",
+                         url: "/Cart/XoaSanPham", // Thay đổi "/TenController" thành đúng tên controller của bạn
+                             data: JSON.stringify({ maDDH: "@MaDDH", maSP: MaSP }), // Sử dụng JSON.stringify để truyền dữ liệu JSON
+                         contentType: "application/json; charset=utf-8", // Đặt loại nội dung cho JSON
+                         dataType: "json", // Đặt kiểu dữ liệu trả về
+                         success: function (result) {
+                                 alert(result.message);
+                             }
+                         });
+
+                         row.remove();
+
+
+
+                     }
+
+
+
+
+
+
+
+            });
+            });
+
+            var btnUpdateDelivery = document.querySelector(".btn__update-delivery");
+            btnUpdateDelivery.addEventListener("click", () => {
+                var listCTDH = document.querySelectorAll(".table_list_product tr");
+                console.log(listCTDH)
+                 var maDDH = "@MaDDH";
+                // Tạo một list JSON chứa thông tin của tất cả các CTDH
+                var listCTDHData = [];
+                for (var i = 1; i < listCTDH.length; i++) {
+                    var ctdh = listCTDH[i];
+
+
+
+                    // Lấy thông tin của CTDH hiện tại
+
+                    var maSP = ctdh.querySelector(".maSP").textContent;
+                    var soLuong = parseInt(ctdh.querySelector(".quantity-product").textContent);
+                    var giaBanSP = parseInt(ctdh.querySelector(".giaBanSP").textContent);
+                    console.log(giaBanSP);
+                    var tongTien = ctdh.querySelector(".tongTien").textContent;
+
+                    // Tạo một đối tượng JSON chứa thông tin của CTDH hiện tại
+                    var ctdhData = {
+                        MaDDH: maDDH,
+                        MaSP: maSP,
+                        SoLuong: soLuong,
+                        GiaBan: giaBanSP,
+                        TongTien: tongTien,
+                    };
+
+                    // Thêm đối tượng JSON này vào list JSON chứa thông tin của tất cả các CTDH
+                    listCTDHData.push(ctdhData);
+                }
+
+                // Sử dụng AJAX để gửi list JSON này lên Controller
+                $.ajax({
+                    type: "POST",
+                    url: "/Cart/CapNhatGioHang", // Thay đổi Controller và Action của bạn
+                    data: JSON.stringify(listCTDHData),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        // Xử lý khi list CTDH đã được cập nhật trong cơ sở dữ liệu
+                        alert(data.message);
+                    }
+                });
+
+            })
+
+
+            var btnDelivery = document.querySelector(".btn__delivery-order");
+            var headerDelivery = document.querySelector(".sub-header__lp-order");
+            var containerDelivery = document.querySelector(".sub_content-delivery");
+            btnDelivery.addEventListener("click", () => {
+                if (headerDelivery.matches(".sub-header__lp.sub-header__lp-order.active")) {
+                    headerDelivery.classList.remove("active");
+                }
+
+
+
+                if (containerDelivery.matches(".sub_content-delivery.active")) {
+                    containerDelivery.classList.remove("active");
+                }
+                $(".btn__delivery-order").hide();
+                $(".btn__update-delivery").hide();
+                const btnOrderInContainer = document.querySelector(".btn__delivery-order_in_container");
+                btnOrderInContainer.addEventListener("click", () => {
+                    var maDDH = "@MaDDH";
+                    var maKH = "@MaKH";
+                    var hoTenNN = document.querySelector(".hoTenNN").value;
+
+                    var diaChiNN = document.querySelector(".diaChiNN").value;
+
+                    var soDTNN = document.querySelector(".SDTNN").value;
+
+                    var HTGH = document.querySelector(".selectedHTGH");
+                    const indexHTGH = HTGH.selectedIndex;
+                    var selectedHTGH = HTGH.options[indexHTGH].value;
+                    var HTTT = document.querySelector(".HTTT").textContent;
+                    const triGia = document.querySelector('.total_list_product span').textContent;
+                    console.log(triGia);
+                    const addDaysToDate = (date, days) => {
+                        const newDate = new Date(date);
+                        newDate.setDate(newDate.getDate() + days);
+                        return newDate;
+                    };
+
+                    function convertDateToYYYYMMDD(date) {
+                        const [day, month, year] = date.split("/");
+                        return `${year}-${month}-${day}`;
+                    }
+
+                    const today = new Date();
+                    const dateNDH = today.toLocaleDateString();
+                    const ngayDH = convertDateToYYYYMMDD(dateNDH);
+                    console.log(ngayDH);
+                    const threeDaysLater = addDaysToDate(today, 3);
+                    const dateGH = threeDaysLater.toLocaleDateString();
+                    const ngayGH = convertDateToYYYYMMDD(dateGH);
+                    console.log(ngayGH);
+                    const tinhTrang = "Đã đặt hàng";
+
+                    var donDatHangData = {
+                        MaDDH: maDDH,
+                        MaKH: maKH,
+                        TenNguoiNhan: hoTenNN,
+                        DiaChiNhan: diaChiNN,
+                        SDTNhanHang: soDTNN,
+                        HTThanhToan: HTTT,
+                        HTGiaoHang: selectedHTGH,
+                        TriGia: triGia,
+                        TinhTrang: tinhTrang
+                    };
+                    console.log(donDatHangData);
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/Cart/ThemDDH", // Thay đổi Controller và Action của bạn
+                        data: JSON.stringify(donDatHangData),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            // Xử lý khi list CTDH đã được cập nhật trong cơ sở dữ liệu
+                            window.location.href = "~/Home";
+                        }
+                    });
+
+                    if (headerDelivery.matches(".sub-header__lp.sub-header__lp-order")) {
+                        headerDelivery.classList.add("active");
+                    }
+
+
+
+                    if (containerDelivery.matches(".sub_content-delivery")) {
+                        containerDelivery.classList.add("active");
+                    }
+                        const tableDDH = document.querySelector(".table_list_product");
+                        tableDDH.innerHTML = `
+                    <tr>
+                        <td class="head_table">Mã sản phẩm</td>
+                        <td class="head_table">Tên loại hàng</td>
+                        <td class="head_table">Tên sản phẩm</td>
+                        <td class="head_table">Hình ảnh minh họa</td>
+                        <td class="head_table">Đơn giá</td>
+                        <td class="head_table">Số luọng</td>
+                        <td class="head_table">Thành tiền</td>
+                        <td class="head_table"></td>
+                    </tr>
+                    `
+                    const triGiaHTML = document.querySelector('.total_list_product span');
+                    triGiaHTML.innerHTML = `
+                         <span>0</span>
+                    `
+
+                })
+
+            })
+
+
+
+
+
+        </script>
+    }
+    <script src="~/assets/js/side_bar.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+}

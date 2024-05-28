@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TonKhoDataSet" targetNamespace="http://tempuri.org/TonKhoDataSet.xsd" xmlns:mstns="http://tempuri.org/TonKhoDataSet.xsd" xmlns="http://tempuri.org/TonKhoDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="2" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="AgrofoodConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="AgrofoodConnectionString1 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.AgrofoodConnectionString1.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="AgrofoodConnectionString2" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="AgrofoodConnectionString2 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.AgrofoodConnectionString2.ConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Web.config" AppSettingsPropertyName="AgrofoodConnectionString3" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="AgrofoodConnectionString3 (Web.config)" ParameterPrefix="@" PropertyReference="AppConfig.System.Configuration.ConfigurationManager.0.ConnectionStrings.AgrofoodConnectionString3.ConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="BaoCaoTonKhoTableAdapter" GeneratorDataComponentClassName="BaoCaoTonKhoTableAdapter" Name="BaoCaoTonKho" UserDataComponentName="BaoCaoTonKhoTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="AgrofoodConnectionString3 (Web.config)" DbObjectName="Agrofood.dbo.BaoCaoTonKho" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT MaSP, TenSP, SoLuongT, SoLuongBan, TonKho FROM dbo.BaoCaoTonKho</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="MaSP" DataSetColumn="MaSP" />
+              <Mapping SourceColumn="TenSP" DataSetColumn="TenSP" />
+              <Mapping SourceColumn="SoLuongT" DataSetColumn="SoLuongT" />
+              <Mapping SourceColumn="SoLuongBan" DataSetColumn="SoLuongBan" />
+              <Mapping SourceColumn="TonKho" DataSetColumn="TonKho" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="TonKhoDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_UserDSName="TonKhoDataSet" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="TonKhoDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="BaoCaoTonKho" msprop:Generator_RowEvHandlerName="BaoCaoTonKhoRowChangeEventHandler" msprop:Generator_RowDeletedName="BaoCaoTonKhoRowDeleted" msprop:Generator_RowDeletingName="BaoCaoTonKhoRowDeleting" msprop:Generator_RowEvArgName="BaoCaoTonKhoRowChangeEvent" msprop:Generator_TablePropName="BaoCaoTonKho" msprop:Generator_RowChangedName="BaoCaoTonKhoRowChanged" msprop:Generator_RowChangingName="BaoCaoTonKhoRowChanging" msprop:Generator_TableClassName="BaoCaoTonKhoDataTable" msprop:Generator_RowClassName="BaoCaoTonKhoRow" msprop:Generator_TableVarName="tableBaoCaoTonKho" msprop:Generator_UserTableName="BaoCaoTonKho">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="MaSP" msprop:Generator_ColumnPropNameInRow="MaSP" msprop:Generator_ColumnPropNameInTable="MaSPColumn" msprop:Generator_ColumnVarNameInTable="columnMaSP" msprop:Generator_UserColumnName="MaSP">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="5" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="TenSP" msprop:Generator_ColumnPropNameInRow="TenSP" msprop:Generator_ColumnPropNameInTable="TenSPColumn" msprop:Generator_ColumnVarNameInTable="columnTenSP" msprop:Generator_UserColumnName="TenSP">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="SoLuongT" msprop:Generator_ColumnPropNameInRow="SoLuongT" msprop:Generator_ColumnPropNameInTable="SoLuongTColumn" msprop:Generator_ColumnVarNameInTable="columnSoLuongT" msprop:Generator_UserColumnName="SoLuongT" type="xs:int" />
+              <xs:element name="SoLuongBan" msprop:Generator_ColumnPropNameInRow="SoLuongBan" msprop:Generator_ColumnPropNameInTable="SoLuongBanColumn" msprop:Generator_ColumnVarNameInTable="columnSoLuongBan" msprop:Generator_UserColumnName="SoLuongBan" type="xs:int" minOccurs="0" />
+              <xs:element name="TonKho" msdata:ReadOnly="true" msprop:Generator_ColumnPropNameInRow="TonKho" msprop:Generator_ColumnPropNameInTable="TonKhoColumn" msprop:Generator_ColumnVarNameInTable="columnTonKho" msprop:Generator_UserColumnName="TonKho" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:BaoCaoTonKho" />
+      <xs:field xpath="mstns:MaSP" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

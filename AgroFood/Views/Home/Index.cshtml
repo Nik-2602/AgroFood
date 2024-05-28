@@ -1,0 +1,272 @@
+﻿
+
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/LayoutUser.cshtml";
+    ViewBag.active = 1;
+
+}
+@section Style {
+    .content {
+    padding-top: 161px;
+    width: 100%;
+    background-color: #f5f5f5;
+    }
+
+    .sales-tw__link {
+    flex: 0 0 20%;
+    display:flex;
+    }
+
+
+
+
+    .sales-tw__sub-item {
+    width:100%;
+    }
+
+    .sales-tw_sub-item__add {
+    margin-top:10px;
+    }
+
+    .sales-tw__sub-item-content {
+    flex:1;}
+
+    .sales-tw_sub-item__sub-head {
+    flex:1;}
+
+    .sales-tw__sub-item-content {
+    display:flex;
+    flex-direction:column;}
+
+    .sales-tw_sub-item__sub-prices {
+    margin-bottom:0;
+    margin-top:10px;}
+
+
+}
+
+@section render_history_search {
+    @{
+        if (@ViewBag.getControllerHome.SearchList != null)
+        {
+            <ul class="header_history-list">
+                @foreach (var item in @ViewBag.getControllerHome.SearchList)
+                {
+                    <li class="header_history-item">
+                        <a href="">
+                            <span>@item</span>
+                        </a>
+                    </li>
+                }
+                @*<li class="header_history-item">
+                        <a href="">
+                            <span>Táo ninh thuận</span>
+                        </a>
+                    </li>
+                    <li class="header_history-item">
+                        <a href="">
+                            <span>Măng cụt</span>
+                        </a>
+                    </li>*@
+            </ul>
+        }
+    }
+
+
+
+}
+
+
+<div class="slider__main">
+    <div class="slider__main-top">
+        <div class="slider__control prev">
+            <i class="fas fa-chevron-circle-left"></i>
+        </div>
+        <div class="slider__img-main">
+            <img src="~/assets/img/sales-slider/test2.png" alt="">
+        </div>
+        <div class="slider__control next">
+            <i class="fas fa-chevron-circle-right"></i>
+        </div>
+
+        <div class="slider__main-bot">
+            <label class="slider__main-bot-item active" for="">
+                <img src="~/assets/img/sales-slider/test2.png" alt="">
+            </label>
+            <label class="slider__main-bot-item " for="">
+                <img src="~/assets/img/sales-slider/test3.png" alt="">
+
+            </label>
+            <label class="slider__main-bot-item " for="">
+                <img src="~/assets/img/sales-slider/test5.png" alt="">
+            </label>
+        </div>
+    </div>
+</div>
+
+
+<div class="best-saler">
+    <h3 class="best-saler__heading">Sản phẩm ưa chuộng</h3>
+    <ul class="best-saler__list">
+        <li class="best-saler__item">
+            <a href="" class="best-saler_item-link">
+                <img src="~/assets/img/img-best-saler/rau.jpg" alt="">
+                <span>Salad</span>
+            </a>
+        </li>
+        <li class="best-saler__item">
+            <a href="" class="best-saler_item-link">
+                <img src="~/assets/img/img-best-saler/susu.jpg" alt="">
+                <span>Su Su</span>
+            </a>
+        </li>
+        <li class="best-saler__item">
+            <a href="" class="best-saler_item-link">
+                <img src="~/assets/img/img-best-saler/orange.jpg" alt="">
+                <span>Cam</span>
+            </a>
+        </li>
+        <li class="best-saler__item">
+            <a href="" class="best-saler_item-link">
+                <img src="~/assets/img/img-best-saler/water-melon.jpg" alt="">
+                <span>Dưa hấu</span>
+            </a>
+        </li>
+        <li class="best-saler__item">
+            <a href="" class="best-saler_item-link">
+                <img src="~/assets/img/img-best-saler/whole-cashew.jpg" alt="">
+                <span>Hạt điều</span>
+            </a>
+        </li>
+        <li class="best-saler__item">
+            <a href="" class="best-saler_item-link">
+                <img src="~/assets/img/img-best-saler/dragon-fruit.jpg" alt="">
+                <span>Thanh long</span>
+            </a>
+        </li>
+        <li class="best-saler__item">
+            <a href="" class="best-saler_item-link">
+                <img src="~/assets/img/img-best-saler/cachua.jpg" alt="">
+                <span>Cà chua</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<div class="sales-market">
+    <div class="sales-maket__img">
+        <img src="~/assets/img/img-sales-heading/bgsupersale.v202310020953.png" alt="">
+    </div>
+    <div class="sales-maket__list-pr">
+
+        @{
+            if (@ViewBag.getControllerHome.DanhSachSanPham != null)
+            {
+
+                for (var i = 0; i < 4; i++)
+                {
+
+                    var giaBanOri = @ViewBag.getControllerHome.DanhSachSanPham[i].GiaBanSP;
+                    string giaBan = string.Format("{0:n0}", giaBanOri);
+                    <a href="@Url.Action("DetailProduct",new {@TenSP = @ViewBag.getControllerHome.DanhSachSanPham[i].TenSP})" class="sales-tw__link">
+                        <div class="sales-tw__sub-item">
+                            <i class="far fa-heart sales-tw__sub-icon"></i>
+                            <div class="sales-tw__sub-item-img">
+                                <img src="@ViewBag.getControllerHome.DanhSachSanPham[i].HinhAnh" alt="">
+                            </div>
+                            <div class="sales-tw__sub-item-content">
+                                <p class="sales-tw_sub-item__sub-shead">
+                                    @ViewBag.getControllerHome.DanhSachSanPham[i].TenLH
+                                </p>
+                                <h3 class="sales-tw_sub-item__sub-head">
+                                    @ViewBag.getControllerHome.DanhSachSanPham[i].TenSP
+                                </h3>
+                                @*                                 <span class="sales-tw_sub-item__sub-prices">@ViewBag.getControllerHome.DanhSachSanPham[i].GiaBanSP đ</span>*@
+                                <span class="sales-tw_sub-item__sub-prices">@giaBan đ</span>
+
+                            </div>
+
+                            <button class="sales-tw_sub-item__add">Chọn Mua</button>
+
+                            <div class="item__sale-off">
+                                <span class="sale-off-percent">50%</span>
+                                <span class="sale-off-label">GIẢM</span>
+                            </div>
+                        </div>
+                    </a>
+                }
+            }
+        }
+
+    </div>
+    <div class="sales-market__bottom">
+        <a href="">Xem tất cả sản phẩm</a>
+        <i class="fas fa-sort-down"></i>
+    </div>
+
+</div>
+
+
+<div class="sales-this-week">
+    <h2 class="sales-this-week__heading">TẤT CẢ SẢ PHẨM</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="sales-this-week__item">
+                @*<div class="sales-this-week__item-heading vet">
+                        <h4>Trái cây các loại</h4>
+                    </div>*@
+                <div class="sales-tw__sub-list vet">
+                    @{
+                        if (@ViewBag.getControllerHome.DanhSachSanPham != null)
+                        {
+
+                            foreach (var item in ViewBag.getControllerHome.DanhSachSanPham)
+                            {
+
+                                var giaBanOri = item.GiaBanSP;
+                                string giaBan = string.Format("{0:n0}", giaBanOri);
+                                <a href="@Url.Action("DetailProduct",new { @TenSP = item.TenSP })" class="sales-tw__link">
+                                    <div class="sales-tw__sub-item">
+                                        <i class="far fa-heart sales-tw__sub-icon"></i>
+                                        <div class="sales-tw__sub-item-img">
+                                            <img src="@item.HinhAnh" alt="">
+                                        </div>
+                                        <div class="sales-tw__sub-item-content">
+                                            <p class="sales-tw_sub-item__sub-shead">
+                                                @item.TenLH
+                                            </p>
+                                            <h3 class="sales-tw_sub-item__sub-head">
+                                                @item.TenSP
+                                            </h3>
+                                            <span class="sales-tw_sub-item__sub-prices">@giaBan đ</span>
+                                            @* <span class="sales-tw_sub-item__sub-prices">@item.GiaBanSP đ</span>*@
+                                        </div>
+
+                                        <button class="sales-tw_sub-item__add">Chọn Mua</button>
+                                    </div>
+                                </a>
+
+                            }
+                        }
+                    }
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Script {
+    <script src="~/assets/js/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+}
+

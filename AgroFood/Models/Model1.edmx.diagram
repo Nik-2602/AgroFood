@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7614824d052c405d8628a55631fc7cfd" Name="Diagram1">
+        <EntityTypeShape EntityType="AgrofoodModel.CTDonDatHang" Width="1.5" PointX="7.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.CTHoaDon" Width="1.5" PointX="10.5" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.CTPhieuNhap" Width="1.5" PointX="7.5" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.DonDatHang" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.HoaDon" Width="1.5" PointX="8.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.KhachHang" Width="1.5" PointX="3" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.LoaiHang" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.MatHang" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.NhaCungCap" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.NhanVien" Width="1.5" PointX="3" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.PhieuNhap" Width="1.5" PointX="5.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AgrofoodModel.SanPham" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />
+        <AssociationConnector Association="AgrofoodModel.FK_CTDDH_DH" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_CTDDH_SP" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_CTDH_DH" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_CTDH_SP" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_CTPN_PN" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_CTPN_SP" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_DDH_KH" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_DH_KH" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_DH_NV" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_Mh_LH" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_SP_MH" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_SP_NCC" ManuallyRouted="false" />
+        <AssociationConnector Association="AgrofoodModel.FK_PN_QTV" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

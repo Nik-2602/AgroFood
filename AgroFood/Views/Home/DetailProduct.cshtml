@@ -1,0 +1,826 @@
+﻿@model AgroFood.Models.SP_LH_MH_NCC
+
+@{
+    ViewBag.Title = "DetailProduct";
+    Layout = "~/Views/Shared/LayoutUserNoJS.cshtml";
+}
+
+@section Style {
+    .content {
+    padding-top: 161px;
+    width: 100%;
+    background-color: #f5f5f5;
+
+    .dp-control-add, .dp-control-buy {
+    text-decoration:none;
+    cursor:pointer;
+    }
+
+    }
+}
+
+<div class="adress">
+    <div class="address_link">
+        <a href="">
+            Argofood
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        <a href="">
+            Danh mục
+            <i class="fas fa-chevron-right"></i>
+        </a>
+
+        <a href="" class="category-link-classify">
+            @Model.TenLH
+            <i class="fas fa-chevron-right"></i>
+        </a>
+
+        <span>@Model.TenSP</span>
+    </div>
+</div>
+
+<div class="detail_product">
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="dp__left">
+                <div class="dp_left-img">
+                    <img class="dp_left-img-main" src="@Model.HinhAnh" alt="">
+                    <div class="btn-control left">
+                        <i class="fas fa-chevron-left"></i>
+                    </div>
+                    <div class="btn-control right">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="dp_left-list-img">
+                    <div class="dp_left-item-img active">
+                        <img src="@Model.HinhAnh" alt="">
+                    </div>
+                    <div class="dp_left-item-img">
+                        <img src="@Model.HinhAnh1" alt="">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-7">
+            <div class="dp__right">
+                <div class="dp_right-name">@Model.TenSP</div>
+                <div class="dp_right-review">
+                    <div class="dp-review-start">
+                        <span>4.9</span>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="dp-review-quantity">
+                        <span>46</span> Đánh Giá
+                    </div>
+                    <div class="dp-review-bought">
+                        <span>6</span> Đã Bán
+                    </div>
+                </div>
+                <div class="dp_right-prices">
+                    @{
+                        var giaBanOriModel = Model.GiaBanSP;
+                        string giaBanModel = string.Format("{0:n0}", giaBanOriModel);
+                    }
+                    <span>@giaBanModel đ</span>
+                    <span class="prices-drop">GIẢM 40%</span>
+                </div>
+                <div class="dp_right-quantity">
+                    <span>Số lượng</span>
+                    <div class="dp_right-box-control-quantity">
+
+                        <button class="minus-quatity">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <span class="quantity-product">1</span>
+                        <button class="plus-quatity">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <span class="quantity_in_stock">@Model.SoLuongT có sẵn</span>
+                </div>
+                <div class="dp_right-control">
+                    @if (Session["User"] == null)
+                    {
+                        <a class="dp-control-add" href="/Login"><i class="fas fa-shopping-cart"></i> Thêm Vào Giỏ Hàng</a>
+                        <a class="dp-control-buy" href="/Login">Mua Ngay</a>
+
+                    }
+                    else
+                    {
+                        <a class="dp-control-add"><i class="fas fa-shopping-cart"></i> Thêm Vào Giỏ Hàng</a>
+                        <a class="dp-control-buy" href="/Cart">Mua Ngay</a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relative_product">
+
+    <div class="relative_product-top">
+        <h3 class="relative_product-head">Sản phẩm có liên quan</h3>
+        <a href="">
+            Xem tất cả <i class="fas fa-angle-right"></i>
+        </a>
+    </div>
+    <div class="relative_product-bottom">
+        <div class="row">
+
+
+            @{
+                if (@ViewBag.listProductTT != null)
+                {
+                    for (var i = 0; i < 4; i++)
+                    {
+
+                        var giaBanOri = @ViewBag.listProductTT[i].GiaBanSP;
+                        string giaBan = string.Format("{0:n0}", giaBanOri);
+                        <div class="col">
+                            <a href="@Url.Action("DetailProduct",new { @TenSP = @ViewBag.listProductTT[i].TenSP })" class="sales-tw__link">
+                                <div class="sales-tw__sub-item">
+                                    <i class="far fa-heart sales-tw__sub-icon"></i>
+                                    <div class="sales-tw__sub-item-img">
+                                        <img src="@ViewBag.listProductTT[i].HinhAnh" alt="">
+                                    </div>
+                                    <p class="sales-tw_sub-item__sub-shead">
+                                        @ViewBag.listProductTT[i].TenLH
+                                    </p>
+                                    <h3 class="sales-tw_sub-item__sub-head">
+                                        @ViewBag.listProductTT[i].TenSP
+                                    </h3>
+                                    <span class="sales-tw_sub-item__sub-prices">@giaBan đ</span>
+                                    <button class="sales-tw_sub-item__add">Chọn Mua</button>
+
+                                    <div class="item__sale-off">
+                                        <span class="sale-off-percent">50%</span>
+                                        <span class="sale-off-label">GIẢM</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            }
+
+
+
+        </div>
+    </div>
+
+
+</div>
+
+<div class="desc_product">
+    <h3 class="desc_product-head">Thông tin sản phẩm</h3>
+    <p class="desc_product-dt">
+        Đậu hũ Vị Nguyên được làm từ nguyên liệu đậu nành tươi sạch, mang đến hương vị béo ngậy, thơm ngon thuần khiết. 2 hộp đậu hũ chiên Vị Nguyên 300g thơm bùi tiện dụng, giàu chất đạm, ít năng lượng, có thể dùng cho người đang ăn kiêng, giảm cân, là loại đậu hũ không thể thiếu cho mọi nhà.
+    </p>
+    <table class="desc_product-table">
+        <tr>
+            <td class="first-col">Loại sản phẩm</td>
+            <td class="second-col">@Model.TenLH</td>
+        </tr>
+        <tr>
+            <td class="first-col">Tên sản phẩm</td>
+            <td class="second-col">@Model.TenSP</td>
+        </tr>
+        <tr>
+            <td class="first-col">Sản Xuất</td>
+            <td class="second-col">@Model.DiaChi</td>
+        </tr>
+        <tr>
+            <td class="first-col">Thương hiệu</td>
+            <td class="second-col">@Model.TenNCC</td>
+        </tr>
+        <tr>
+            <td class="first-col">Trọng lượng</td>
+            <td class="second-col">@Model.TrongLuong</td>
+        </tr>
+
+
+
+    </table>
+
+    <div class="review_prodcut-user">
+        <h3 class="review_prodcut-user-head">
+            Đánh giá sản phẩm này
+        </h3>
+        <p class="review_prodcut-user-subhead">Nếu đã mua sản phẩm này tại Agrofood. Hãy đánh giá ngay để giúp hàng ngàn người chọn mua hàng tốt nhất bạn nhé!</p>
+        <div class="review_prodcut-user-bottom review">
+            <div class="review_prodcut-user-list-start">
+                <div class="review_prodcut-user-list-desc review">
+                    <i class="far fa-star"></i>
+                    <span>Rất tệ</span>
+
+                </div>
+                <div class="review_prodcut-user-list-desc review">
+                    <i class="far fa-star"></i>
+                    <span>Tệ</span>
+
+                </div>
+                <div class="review_prodcut-user-list-desc review">
+                    <i class="far fa-star"></i>
+                    <span>Tạm ổn</span>
+
+                </div>
+                <div class="review_prodcut-user-list-desc review">
+                    <i class="far fa-star"></i>
+                    <span>Tốt</span>
+
+                </div>
+                <div class="review_prodcut-user-list-desc review">
+                    <i class="far fa-star"></i>
+                    <span>Rất tốt</span>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="commnent_product">
+        <h3 class="commnent_product-head">Đánh giá</h3>
+
+        <div class="comment_product-total">
+            <div class="cp-total-top">
+                <span>5</span>
+                <div class="total-start">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <span class="cp-total-cm">2 đánh giá</span>
+            </div>
+
+            <div class="cp-total-bot">
+                <div class="fivestart-total total-quantity">
+                    <span>5</span>
+                    <i class="fas fa-star"></i>
+                    <div class="line-start">
+                        <div class="line-start-quantity"></div>
+                    </div>
+                    <p class="total-percent">100%</p>
+                </div>
+                <div class="fourstart-total total-quantity">
+                    <span>4</span>
+                    <i class="fas fa-star"></i>
+                    <div class="line-start">
+                        <div class="line-start-quantity"></div>
+                    </div>
+                    <p class="total-percent">0%</p>
+                </div>
+                <div class="threestart-total total-quantity">
+                    <span>3</span>
+                    <i class="fas fa-star"></i>
+                    <div class="line-start">
+                        <div class="line-start-quantity"></div>
+                    </div>
+                    <p class="total-percent">0%</p>
+                </div>
+                <div class="twostart-total total-quantity">
+                    <span>2</span>
+                    <i class="fas fa-star"></i>
+                    <div class="line-start">
+                        <div class="line-start-quantity"></div>
+                    </div>
+                    <p class="total-percent">0%</p>
+                </div>
+                <div class="onestart-total total-quantity">
+                    <span>1</span>
+                    <i class="fas fa-star"></i>
+                    <div class="line-start">
+                        <div class="line-start-quantity"></div>
+                    </div>
+                    <p class="total-percent">0%</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="user_commnent">
+            <ul class="user_commnet-list">
+                <li class="user_comment-item">
+                    <p class="user_comment-name">Nguyễn Trâm</p>
+                    <div class="total-start">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="user_comment-content">
+                        Hết km thì gỡ 2h=35k cho đỡ chói mắt, 1h là 17,5k đương nhiên 2h=35k rồi, lúc xem đơn vẫn còn giảm 50% đặt đơn xong mới thấy hết giảm, nói ko nên lời
+                    </p>
+                    <div class="user_comment-bot">
+                        <span class="user_comment-bot-ans">Trả lời</span>
+                        <span class="user_comment-bot-like">
+                            <i class="far fa-thumbs-up"></i>
+                            <span>Thích</span>
+                            <span class="quantity">(1)</span>
+                        </span>
+                        <span class="user_comment-bot-date">15/10/2023</span>
+                    </div>
+                </li>
+
+                <li class="user_comment-item">
+                    <p class="user_comment-name">Nguyễn Văn A</p>
+                    <div class="total-start">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="user_comment-content">
+                        Sản phẩm rất tuyệt
+                    </p>
+                    <div class="user_comment-bot">
+                        <span class="user_comment-bot-ans">Trả lời</span>
+                        <span class="user_comment-bot-like">
+                            <i class="far fa-thumbs-up"></i>
+                            <span>Thích</span>
+                            <span class="quantity"></span>
+                        </span>
+                        <span class="user_comment-bot-date">23/11/2023</span>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+
+
+
+</div>
+
+<div class="modal__review">
+    <div class="modal__container">
+        <div class="modal__close"><i class="fas fa-times"></i></div>
+        <h3 class="modal__header">Đánh giá sản phẩm</h3>
+        <div class="modal__content">
+            <div class="review_prodcut-user-bottom">
+                <div class="review_prodcut-user-list-start">
+                    <div class="review_prodcut-user-list-desc in-modal">
+                        <i class="far fa-star start_1 active"></i>
+                        <i class="fas fa-star start_2"></i>
+                        <span>Rất tệ</span>
+                    </div>
+                    <div class="review_prodcut-user-list-desc in-modal">
+                        <i class="far fa-star start_1 active"></i>
+                        <i class="fas fa-star start_2"></i>
+                        <span>Tệ</span>
+
+                    </div>
+                    <div class="review_prodcut-user-list-desc in-modal">
+                        <i class="far fa-star start_1 active"></i>
+                        <i class="fas fa-star start_2"></i>
+
+                        <span>Tạm ổn</span>
+
+                    </div>
+                    <div class="review_prodcut-user-list-desc in-modal">
+                        <i class="far fa-star start_1 active"></i>
+                        <i class="fas fa-star start_2"></i>
+
+                        <span>Tốt</span>
+
+                    </div>
+                    <div class="review_prodcut-user-list-desc in-modal">
+                        <i class="far fa-star start_1 active"></i>
+                        <i class="fas fa-star start_2"></i>
+
+                        <span>Rất tốt</span>
+                    </div>
+                </div>
+            </div>
+
+            <textarea name="" id="" cols="30" rows="1" placeholder="Mời bạn chia sẽ thêm cảm nhận..." class="modal__input"></textarea>
+
+            <div class="modal__control">
+                <div class="modal__control-left">
+                    <input type="checkbox" name="" id="checkbox">
+                    <label for="checkbox" class="modal__label">Tôi sẽ giới thiêu với bạn bè và người thân</label>
+                </div>
+                <div class="modal__control-right">
+                    <input type="file" id="get-file" style="display:none">
+                    <label for="get-file">
+                        <i class="fas fa-camera"></i>
+                        Gửi ảnh thực tế
+                    </label>
+                    <span> (Tối đa 3 ảnh)</span>
+                </div>
+            </div>
+
+            <div class="modal__infor">
+                <input type="text" placeholder="Họ tên bắt buộc">
+                <input type="text" placeholder="Số điện thoại bắt buộc">
+            </div>
+
+            <p class="modal__confir">
+                <i class="fas fa-check-circle"></i>
+                <span>Agrofood cam kết bảo mật số điện thoại của bạn</span>
+            </p>
+
+            <button class="modal__btn">Gửi đánh giá</button>
+            <div class="modal_end">
+                <a href="">Quy định đánh giá</a>
+                <a href="">Chính sách đánh giá</a>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+@section Script {
+    <script src="~/assets/js/detailProduct.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const listItem = document.querySelectorAll(".side_transition-item-top>a")
+        const listDetailItem = document.querySelectorAll(".side_transition-item-top .side_transition-detail .side_transition-detail-item");
+        listDetailItem.forEach((item) => {
+            item.addEventListener("click", () => {
+                const spanElement = item.querySelector("span");
+                if (spanElement) {
+                    const SearchTerm = spanElement.textContent;
+                    $.ajax({
+                        type: "POST",
+                        url: "/Category",
+                        data: JSON.stringify({ search: SearchTerm }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            window.location.href = "/Category";
+                        },
+                        error: function (error) {
+                            console.error("Error occurred during AJAX request:", error);
+                        },
+
+                    });
+
+
+                }
+            });
+        });
+    </script>
+
+    @if (Session["User"] != null)
+    {
+        <script>
+            var minusBtn = document.querySelector(".minus-quatity");
+            var plusBtn = document.querySelector(".plus-quatity");
+            var quantityProduct = document.querySelector(".quantity-product");
+            var quantityStock = document.querySelector(".quantity_in_stock");
+
+            var currentQuantity = parseInt(quantityProduct.textContent);
+            var currentQuantityStock = parseInt(quantityStock.textContent);
+
+            minusBtn.addEventListener("click", () => {
+                if (currentQuantity > 1) {
+                    currentQuantity -= 1;
+                    // Cập nhật số lượng hiển thị
+                    quantityProduct.textContent = currentQuantity;
+                }
+            })
+
+            plusBtn.addEventListener("click", () => {
+                if (currentQuantity < currentQuantityStock) {
+                    currentQuantity += 1;
+                    // Cập nhật số lượng hiển thị
+                    quantityProduct.textContent = currentQuantity;
+                }
+
+
+            })
+
+
+            var listDeleteAddProduct = document.querySelectorAll(".header_body-del");
+            var boughtLists = document.querySelector(".header__bought-list");
+            var noBought = document.querySelector(".header__no-cart");
+            var quatityBoughtList = document.querySelector(".header__cart-notice.listBuyProduct");
+            var quantityBoughtProduct = boughtLists.children.length;
+
+
+
+
+            //Nếu hết sản phẩm thì chuyển sang phần ko còn sản phẩm
+            if (quantityBoughtProduct > 0) {
+                var parentElement = boughtLists.parentNode;
+                parentElement.classList.add("active");
+                noBought.classList.remove("active");
+            }
+            else {
+                var parentElement = boughtLists.parentNode;
+                parentElement.classList.remove("active");
+                noBought.classList.add("active");
+            }
+
+            // Hiển thị số lượng ban đầu
+            quatityBoughtList.textContent = quantityBoughtProduct;
+
+            //Xóa sản phẩm không muốn mua nữa
+            listDeleteAddProduct.forEach((item) => {
+                    item.addEventListener("click", (e) => {
+                        var listItem = item.closest(".header__bought-item");
+                         @{ var listBuyDDH = Session["getListBuyDDH"] as List<AgroFood.Models.DonDatHang>;
+                             var MaDDH = "";
+
+                             foreach (var item in listBuyDDH)
+                             {
+                                 MaDDH = item.MaDDH;
+
+                             }
+
+                         }
+                        var MaSP = item.getAttribute("data-js");
+
+                        if (listItem) {
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/Home/XoaSanPham", // Thay đổi "/TenController" thành đúng tên controller của bạn
+                               data: JSON.stringify({ maDDH: "@MaDDH", maSP: MaSP }), // Sử dụng JSON.stringify để truyền dữ liệu JSON
+                                contentType: "application/json; charset=utf-8", // Đặt loại nội dung cho JSON
+                                dataType: "json", // Đặt kiểu dữ liệu trả về
+                                success: function (result) {
+                                    $('.header__action').html(result);
+                                    }
+                            });
+                            listItem.remove();
+                            quantityBoughtProduct = boughtLists.children.length;
+                            quatityBoughtList.textContent = quantityBoughtProduct; // Cập nhật số lượng
+                            if (quantityBoughtProduct === 0) {
+                                var parentElement = boughtLists.parentNode;
+                                parentElement.classList.remove("active");
+                                noBought.classList.add("active");
+                            }
+                        }
+                    });
+                });
+
+
+            //Thêm sản phẩm vào giỏ hàng
+            var addCartButton = document.querySelector(".dp-control-add");
+            var nameProductAdd = document.querySelector(".dp_right-name");
+            var imgProductAdd = document.querySelector(".dp_left-img-main");
+            var priceProductAdd = document.querySelector(".dp_right-prices");
+            var classifyProductAdd = document.querySelector(".category-link-classify");
+
+
+            addCartButton.addEventListener("click", () => {
+
+                if (quantityBoughtProduct == 0) {
+                    var parentElement = boughtLists.parentNode;
+                    noBought.classList.remove("active");
+                    parentElement.classList.add("active");
+                }
+
+                var newItem = document.createElement("li");
+                newItem.classList.add("header__bought-item");
+
+                newItem.innerHTML = `
+                                            <img src="${imgProductAdd.getAttribute('src')}" alt="" class="header__bought-item-img" />
+                                            <div class="header__bought-info">
+                                              <div class="header__bought-info-head">
+                                                <h5 class="header_head-name">${nameProductAdd.textContent}</h5>
+                                                <div class="header_head-wrap">
+                                                  <span class="header_wrap-price">${priceProductAdd.children[0].textContent}</span>
+                                                  <span class="header_wrap-mutiply">x</span>
+                                                  <span class="header__wrap-quatity">${currentQuantity}</span>
+                                                </div>
+                                              </div>
+                                              <div class="header__bought-info-body">
+                                                <span class="header_body-desc">Phân loại: ${classifyProductAdd.textContent}</span>
+                                                <a class="header_body-del" data-JS="@Model.MaSP">Xóa</a>
+                                              </div>
+                                            </div>
+                                          `;
+                boughtLists.appendChild(newItem);
+                quantityBoughtProduct = boughtLists.children.length;
+                quatityBoughtList.textContent = quantityBoughtProduct; // Cập nhật số lượng
+
+
+                var deleteButton = newItem.querySelector(".header_body-del");
+                deleteButton.addEventListener("click", (e) => {
+                    var MaSP = e.target.getAttribute("data-js");
+                    if (newItem) {
+                         $.ajax({
+                         type: "POST",
+                         url: "/Home/XoaSanPham", // Thay đổi "/TenController" thành đúng tên controller của bạn
+                        data: JSON.stringify({ maDDH: "@MaDDH", maSP: MaSP }), // Sử dụng JSON.stringify để truyền dữ liệu JSON
+                         contentType: "application/json; charset=utf-8", // Đặt loại nội dung cho JSON
+                         dataType: "json", // Đặt kiểu dữ liệu trả về
+                         success: function (result) {
+                                 alert(result.message);
+                             }
+                     });
+                    }
+                    newItem.remove(); // Xóa sản phẩm khi nút xóa được nhấn
+                    quantityBoughtProduct = boughtLists.children.length;
+                    quatityBoughtList.textContent = quantityBoughtProduct; // Cập nhật số lượng
+                    if (quantityBoughtProduct === 0) {
+                        parentElement.classList.remove("active");
+                        noBought.classList.add("active");
+                    }
+
+
+
+                });
+
+                //Thêm sản phẩm và cập nhật dữ liệu
+                var productName = nameProductAdd.textContent;
+                var productImage = imgProductAdd.getAttribute("src");
+                var productPrice = priceProductAdd.children[0].textContent;
+                var productClassify = classifyProductAdd.textContent;
+
+                // Tạo đối tượng JSON chứa thông tin sản phẩm
+
+                var tongTien = parseInt("@Model.GiaBanSP", 10) * parseInt(currentQuantity, 10);
+                var  giaBan = parseInt("@Model.GiaBanSP", 10)
+
+
+                var productData = {
+                    TenLH: "@Model.TenLH",
+                    TenSP: "@Model.TenSP",
+                    MaDDH: "@MaDDH",
+                    MaSP: "@Model.MaSP",
+                    SoLuong: currentQuantity,
+                    GiaBanSP: giaBan,
+                    HinhAnh: "@Model.HinhAnh",
+                    TongTien: tongTien,
+                };
+
+                // Sử dụng AJAX để gửi thông tin sản phẩm lên Controller
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/ThemSanPham", // Thay đổi Controller và Action của bạn
+                    data: JSON.stringify(productData),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        // Xử lý khi sản phẩm đã được thêm vào cơ sở dữ liệu
+                        /*$('.header__action').html(data);*/
+                    }
+                });
+
+
+                currentQuantity = 1;
+                quantityProduct.textContent = currentQuantity;
+
+
+
+
+            })
+
+
+            var buyCartButton = document.querySelector(".dp-control-buy");
+            buyCartButton.addEventListener("click", () => {
+                 if (quantityBoughtProduct == 0) {
+                         var parentElement = boughtLists.parentNode;
+                         noBought.classList.remove("active");
+                         parentElement.classList.add("active");
+                 }
+
+                     var newItem = document.createElement("li");
+                     newItem.classList.add("header__bought-item");
+
+                     newItem.innerHTML = `
+                                                 <img src="${imgProductAdd.getAttribute('src')}" alt="" class="header__bought-item-img" />
+                                                 <div class="header__bought-info">
+                                                   <div class="header__bought-info-head">
+                                                     <h5 class="header_head-name">${nameProductAdd.textContent}</h5>
+                                                     <div class="header_head-wrap">
+                                                       <span class="header_wrap-price">${priceProductAdd.children[0].textContent}</span>
+                                                       <span class="header_wrap-mutiply">x</span>
+                                                       <span class="header__wrap-quatity">${currentQuantity}</span>
+                                                     </div>
+                                                   </div>
+                                                   <div class="header__bought-info-body">
+                                                     <span class="header_body-desc">Phân loại: ${classifyProductAdd.textContent}</span>
+                                                     <a class="header_body-del" data-JS="@Model.MaSP">Xóa</a>
+                                                   </div>
+                                                 </div>
+                                               `;
+                     boughtLists.appendChild(newItem);
+                     quantityBoughtProduct = boughtLists.children.length;
+                     quatityBoughtList.textContent = quantityBoughtProduct; // Cập nhật số lượng
+
+
+                     var deleteButton = newItem.querySelector(".header_body-del");
+                     deleteButton.addEventListener("click", (e) => {
+                         var MaSP = e.target.getAttribute("data-js");
+                         if (newItem) {
+                              $.ajax({
+                              type: "POST",
+                              url: "/Home/XoaSanPham", // Thay đổi "/TenController" thành đúng tên controller của bạn
+                             data: JSON.stringify({ maDDH: "@MaDDH", maSP: MaSP }), // Sử dụng JSON.stringify để truyền dữ liệu JSON
+                              contentType: "application/json; charset=utf-8", // Đặt loại nội dung cho JSON
+                              dataType: "json", // Đặt kiểu dữ liệu trả về
+                              success: function (result) {
+                                      alert(result.message);
+                                  }
+                          });
+                         }
+                         newItem.remove(); // Xóa sản phẩm khi nút xóa được nhấn
+                         quantityBoughtProduct = boughtLists.children.length;
+                         quatityBoughtList.textContent = quantityBoughtProduct; // Cập nhật số lượng
+                         if (quantityBoughtProduct === 0) {
+                             parentElement.classList.remove("active");
+                             noBought.classList.add("active");
+                         }
+
+
+
+                     });
+
+                     //Thêm sản phẩm và cập nhật dữ liệu
+                     var productName = nameProductAdd.textContent;
+                     var productImage = imgProductAdd.getAttribute("src");
+                     var productPrice = priceProductAdd.children[0].textContent;
+                     var productClassify = classifyProductAdd.textContent;
+
+                     // Tạo đối tượng JSON chứa thông tin sản phẩm
+
+                     var tongTien = parseInt("@Model.GiaBanSP", 10) * parseInt(currentQuantity, 10);
+                     var  giaBan = parseInt("@Model.GiaBanSP", 10)
+
+
+                     var productData = {
+                         TenLH: "@Model.TenLH",
+                         TenSP: "@Model.TenSP",
+                         MaDDH: "@MaDDH",
+                         MaSP: "@Model.MaSP",
+                         SoLuong: currentQuantity,
+                         GiaBanSP: giaBan,
+                         HinhAnh: "@Model.HinhAnh",
+                         TongTien: tongTien,
+                     };
+
+                     // Sử dụng AJAX để gửi thông tin sản phẩm lên Controller
+                     $.ajax({
+                         type: "POST",
+                         url: "/Home/MuaSanPham", // Thay đổi Controller và Action của bạn
+                         data: JSON.stringify(productData),
+                         contentType: "application/json; charset=utf-8",
+                         dataType: "json",
+                         success: function (data) {
+                             // Xử lý khi sản phẩm đã được thêm vào cơ sở dữ liệu
+                            
+                         }
+                     });
+
+
+                     currentQuantity = 1;
+                     quantityProduct.textContent = currentQuantity;
+
+            })
+        </script>
+
+    }
+    else
+    {
+        <script>
+            var minusBtn = document.querySelector(".minus-quatity");
+            var plusBtn = document.querySelector(".plus-quatity");
+            var quantityProduct = document.querySelector(".quantity-product");
+            var quantityStock = document.querySelector(".quantity_in_stock");
+
+            var currentQuantity = parseInt(quantityProduct.textContent);
+            var currentQuantityStock = parseInt(quantityStock.textContent);
+
+            minusBtn.addEventListener("click", () => {
+                if (currentQuantity > 1) {
+                    currentQuantity -= 1;
+                    // Cập nhật số lượng hiển thị
+                    quantityProduct.textContent = currentQuantity;
+                }
+            })
+
+            plusBtn.addEventListener("click", () => {
+                if (currentQuantity < currentQuantityStock) {
+                    currentQuantity += 1;
+                    // Cập nhật số lượng hiển thị
+                    quantityProduct.textContent = currentQuantity;
+                }
+
+
+            })
+
+
+        </script>
+    }
+
+
+
+}
